@@ -1,18 +1,12 @@
 'use strict';
-var parent = require('../../stable/array');
-require('../../modules/es.promise');
+require('../../modules/es.array-buffer.constructor');
+require('../../modules/es.array-buffer.is-view');
+require('../../modules/es.array-buffer.slice');
+require('../../modules/es.data-view');
+require('../../modules/es.array-buffer.detached');
+require('../../modules/es.array-buffer.transfer');
+require('../../modules/es.array-buffer.transfer-to-fixed-length');
 require('../../modules/es.object.to-string');
-require('../../modules/esnext.array.from-async');
-require('../../modules/esnext.array.group');
-require('../../modules/esnext.array.group-to-map');
-// TODO: Remove from `core-js@4`
-require('../../modules/esnext.array.find-last');
-require('../../modules/esnext.array.find-last-index');
-require('../../modules/esnext.array.group-by');
-require('../../modules/esnext.array.group-by-to-map');
-require('../../modules/esnext.array.to-reversed');
-require('../../modules/esnext.array.to-sorted');
-require('../../modules/esnext.array.to-spliced');
-require('../../modules/esnext.array.with');
+var path = require('../../internals/path');
 
-module.exports = parent;
+module.exports = path.ArrayBuffer;

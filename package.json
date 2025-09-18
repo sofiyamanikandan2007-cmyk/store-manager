@@ -1,5 +1,5 @@
 {
-  "name": "core-js",
+  "name": "core-js-pure",
   "version": "3.39.0",
   "type": "commonjs",
   "description": "Standard library",
@@ -54,7 +54,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zloirock/core-js.git",
-    "directory": "packages/core-js"
+    "directory": "packages/core-js-pure"
   },
   "funding": {
     "type": "opencollective",
@@ -66,6 +66,9 @@
     "email": "zloirock@zloirock.ru",
     "url": "http://zloirock.ru"
   },
+  "sideEffects": [
+    "./modules/*.js"
+  ],
   "main": "index.js",
   "scripts": {
     "postinstall": "node -e \"try{require('./postinstall')}catch(e){}\""

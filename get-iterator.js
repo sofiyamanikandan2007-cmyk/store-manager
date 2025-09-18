@@ -1,6 +1,4 @@
 'use strict';
-require('../modules/es.array.iterator');
-require('../modules/es.string.iterator');
-var getIterator = require('../internals/get-iterator');
+var parent = require('../stable/get-iterator');
 
-module.exports = getIterator;
+module.exports = parent;

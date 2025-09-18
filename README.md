@@ -1,28 +1,37 @@
-                       __
-                      /\ \                                                         __
-     __  __    ___    \_\ \     __   _ __   ____    ___    ___   _ __    __       /\_\    ____
-    /\ \/\ \ /' _ `\  /'_  \  /'__`\/\  __\/ ,__\  / ___\ / __`\/\  __\/'__`\     \/\ \  /',__\
-    \ \ \_\ \/\ \/\ \/\ \ \ \/\  __/\ \ \//\__, `\/\ \__//\ \ \ \ \ \//\  __/  __  \ \ \/\__, `\
-     \ \____/\ \_\ \_\ \___,_\ \____\\ \_\\/\____/\ \____\ \____/\ \_\\ \____\/\_\ _\ \ \/\____/
-      \/___/  \/_/\/_/\/__,_ /\/____/ \/_/ \/___/  \/____/\/___/  \/_/ \/____/\/_//\ \_\ \/___/
-                                                                                  \ \____/
-                                                                                   \/___/
+# Dot Case
 
-Underscore.js is a utility-belt library for JavaScript that provides
-support for the usual functional suspects (each, map, reduce, filter...)
-without extending any core JavaScript objects.
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][downloads-image]][downloads-url]
+[![Bundle size][bundlephobia-image]][bundlephobia-url]
 
-For Docs, License, Tests, and pre-packed downloads, see:
-https://underscorejs.org
+> Transform into a lower case string with a period between words.
 
-For support and questions, please use
-[the gitter channel](https://gitter.im/jashkenas/underscore)
-or [stackoverflow](https://stackoverflow.com/search?q=underscore.js)
+## Installation
 
-Underscore is an open-sourced component of DocumentCloud:
-https://github.com/documentcloud
+```
+npm install dot-case --save
+```
 
-Many thanks to our contributors:
-https://github.com/jashkenas/underscore/contributors
+## Usage
 
-This project adheres to a [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+```js
+import { dotCase } from "dot-case";
+
+dotCase("string"); //=> "string"
+dotCase("dot.case"); //=> "dot.case"
+dotCase("PascalCase"); //=> "pascal.case"
+dotCase("version 1.2.10"); //=> "version.1.2.10"
+```
+
+The function also accepts [`options`](https://github.com/blakeembrey/change-case#options).
+
+## License
+
+MIT
+
+[npm-image]: https://img.shields.io/npm/v/dot-case.svg?style=flat
+[npm-url]: https://npmjs.org/package/dot-case
+[downloads-image]: https://img.shields.io/npm/dm/dot-case.svg?style=flat
+[downloads-url]: https://npmjs.org/package/dot-case
+[bundlephobia-image]: https://img.shields.io/bundlephobia/minzip/dot-case.svg
+[bundlephobia-url]: https://bundlephobia.com/result?p=dot-case

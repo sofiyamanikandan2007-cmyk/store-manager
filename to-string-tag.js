@@ -1,4 +1,4 @@
 'use strict';
-var parent = require('../../stable/json/to-string-tag');
+var parent = require('../../stable/math/to-string-tag');
 
 module.exports = parent;

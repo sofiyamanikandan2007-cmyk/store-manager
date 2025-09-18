@@ -1,39 +1,28 @@
-# lodash v4.17.21
+                       __
+                      /\ \                                                         __
+     __  __    ___    \_\ \     __   _ __   ____    ___    ___   _ __    __       /\_\    ____
+    /\ \/\ \ /' _ `\  /'_  \  /'__`\/\  __\/ ,__\  / ___\ / __`\/\  __\/'__`\     \/\ \  /',__\
+    \ \ \_\ \/\ \/\ \/\ \ \ \/\  __/\ \ \//\__, `\/\ \__//\ \ \ \ \ \//\  __/  __  \ \ \/\__, `\
+     \ \____/\ \_\ \_\ \___,_\ \____\\ \_\\/\____/\ \____\ \____/\ \_\\ \____\/\_\ _\ \ \/\____/
+      \/___/  \/_/\/_/\/__,_ /\/____/ \/_/ \/___/  \/____/\/___/  \/_/ \/____/\/_//\ \_\ \/___/
+                                                                                  \ \____/
+                                                                                   \/___/
 
-The [Lodash](https://lodash.com/) library exported as [Node.js](https://nodejs.org/) modules.
+Underscore.js is a utility-belt library for JavaScript that provides
+support for the usual functional suspects (each, map, reduce, filter...)
+without extending any core JavaScript objects.
 
-## Installation
+For Docs, License, Tests, and pre-packed downloads, see:
+https://underscorejs.org
 
-Using npm:
-```shell
-$ npm i -g npm
-$ npm i --save lodash
-```
+For support and questions, please use
+[the gitter channel](https://gitter.im/jashkenas/underscore)
+or [stackoverflow](https://stackoverflow.com/search?q=underscore.js)
 
-In Node.js:
-```js
-// Load the full build.
-var _ = require('lodash');
-// Load the core build.
-var _ = require('lodash/core');
-// Load the FP build for immutable auto-curried iteratee-first data-last methods.
-var fp = require('lodash/fp');
+Underscore is an open-sourced component of DocumentCloud:
+https://github.com/documentcloud
 
-// Load method categories.
-var array = require('lodash/array');
-var object = require('lodash/fp/object');
+Many thanks to our contributors:
+https://github.com/jashkenas/underscore/contributors
 
-// Cherry-pick methods for smaller browserify/rollup/webpack bundles.
-var at = require('lodash/at');
-var curryN = require('lodash/fp/curryN');
-```
-
-See the [package source](https://github.com/lodash/lodash/tree/4.17.21-npm) for more details.
-
-**Note:**<br>
-Install [n_](https://www.npmjs.com/package/n_) for Lodash use in the Node.js < 6 REPL.
-
-## Support
-
-Tested in Chrome 74-75, Firefox 66-67, IE 11, Edge 18, Safari 11-12, & Node.js 8-12.<br>
-Automated [browser](https://saucelabs.com/u/lodash) & [CI](https://travis-ci.org/lodash/lodash/) test runs are available.
+This project adheres to a [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.

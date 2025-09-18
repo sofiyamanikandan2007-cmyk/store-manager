@@ -1,7 +1,7 @@
 define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-	var reverse = _unmethodize(_setup.ArrayProto.reverse);
+	var shift = _unmethodize(_setup.ArrayProto.shift);
 
-	return reverse;
+	return shift;
 
 });

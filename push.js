@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.push');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/push');
 
-module.exports = entryUnbind('Array', 'push');
+module.exports = parent;

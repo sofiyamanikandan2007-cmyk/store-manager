@@ -1,5 +1,6 @@
 'use strict';
-require('../../modules/es.array.find');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/iterator/find');
+require('../../modules/esnext.iterator.constructor');
+require('../../modules/esnext.iterator.find');
 
-module.exports = entryUnbind('Array', 'find');
+module.exports = parent;

@@ -1,2 +1,4 @@
 'use strict';
-require('../../modules/es.array-buffer.slice');
+var parent = require('../../stable/instance/slice');
+
+module.exports = parent;

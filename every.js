@@ -1,5 +1,6 @@
 'use strict';
-require('../../modules/es.array.every');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/iterator/every');
+require('../../modules/esnext.iterator.constructor');
+require('../../modules/esnext.iterator.every');
 
-module.exports = entryUnbind('Array', 'every');
+module.exports = parent;

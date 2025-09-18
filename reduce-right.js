@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.reduce-right');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/reduce-right');
 
-module.exports = entryUnbind('Array', 'reduceRight');
+module.exports = parent;

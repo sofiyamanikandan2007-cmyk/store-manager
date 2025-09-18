@@ -1,5 +1,6 @@
 'use strict';
-require('../../modules/es.array.reduce');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/iterator/reduce');
+require('../../modules/esnext.iterator.constructor');
+require('../../modules/esnext.iterator.reduce');
 
-module.exports = entryUnbind('Array', 'reduce');
+module.exports = parent;

@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.at');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/at');
 
-module.exports = entryUnbind('Array', 'at');
+module.exports = parent;

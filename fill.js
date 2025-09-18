@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.fill');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/fill');
 
-module.exports = entryUnbind('Array', 'fill');
+module.exports = parent;

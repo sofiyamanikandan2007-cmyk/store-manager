@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.reverse');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/reverse');
 
-module.exports = entryUnbind('Array', 'reverse');
+module.exports = parent;

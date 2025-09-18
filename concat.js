@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.concat');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/concat');
 
-module.exports = entryUnbind('Array', 'concat');
+module.exports = parent;

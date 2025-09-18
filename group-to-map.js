@@ -1,7 +1,10 @@
 'use strict';
-require('../../modules/es.map');
-require('../../modules/es.object.to-string');
-require('../../modules/esnext.array.group-to-map');
-var entryUnbind = require('../../internals/entry-unbind');
+var isPrototypeOf = require('../../internals/object-is-prototype-of');
+var method = require('../array/virtual/group-to-map');
 
-module.exports = entryUnbind('Array', 'groupToMap');
+var ArrayPrototype = Array.prototype;
+
+module.exports = function (it) {
+  var own = it.groupToMap;
+  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.groupToMap) ? method : own;
+};

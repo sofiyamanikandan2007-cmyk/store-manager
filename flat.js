@@ -1,6 +1,4 @@
 'use strict';
-require('../../modules/es.array.flat');
-require('../../modules/es.array.unscopables.flat');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/flat');
 
-module.exports = entryUnbind('Array', 'flat');
+module.exports = parent;

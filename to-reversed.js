@@ -1,5 +1,10 @@
 'use strict';
-require('../../modules/es.array.to-reversed');
-var entryUnbind = require('../../internals/entry-unbind');
+var isPrototypeOf = require('../../internals/object-is-prototype-of');
+var method = require('../array/virtual/to-reversed');
 
-module.exports = entryUnbind('Array', 'toReversed');
+var ArrayPrototype = Array.prototype;
+
+module.exports = function (it) {
+  var own = it.toReversed;
+  return (it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.toReversed)) ? method : own;
+};

@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.sort');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/sort');
 
-module.exports = entryUnbind('Array', 'sort');
+module.exports = parent;

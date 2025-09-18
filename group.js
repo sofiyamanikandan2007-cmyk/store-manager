@@ -1,5 +1,10 @@
 'use strict';
-require('../../modules/esnext.array.group');
-var entryUnbind = require('../../internals/entry-unbind');
+var isPrototypeOf = require('../../internals/object-is-prototype-of');
+var method = require('../array/virtual/group');
 
-module.exports = entryUnbind('Array', 'group');
+var ArrayPrototype = Array.prototype;
+
+module.exports = function (it) {
+  var own = it.group;
+  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.group) ? method : own;
+};

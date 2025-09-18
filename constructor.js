@@ -1,10 +1,4 @@
 'use strict';
-require('../../modules/es.array-buffer.constructor');
-require('../../modules/es.array-buffer.slice');
-require('../../modules/es.array-buffer.detached');
-require('../../modules/es.array-buffer.transfer');
-require('../../modules/es.array-buffer.transfer-to-fixed-length');
-require('../../modules/es.object.to-string');
-var path = require('../../internals/path');
+var parent = require('../../stable/error/constructor');
 
-module.exports = path.ArrayBuffer;
+module.exports = parent;

@@ -1,5 +1,4 @@
 'use strict';
-require('../../modules/es.array.includes');
-var entryUnbind = require('../../internals/entry-unbind');
+var parent = require('../../stable/instance/includes');
 
-module.exports = entryUnbind('Array', 'includes');
+module.exports = parent;

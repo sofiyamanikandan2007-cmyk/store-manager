@@ -1,4 +1,8 @@
-'use strict';
-var parent = require('../stable/unescape');
+define(['./_createEscaper', './_unescapeMap'], function (_createEscaper, _unescapeMap) {
 
-module.exports = parent;
+	// Function for unescaping strings from HTML interpolation.
+	var _unescape = _createEscaper(_unescapeMap);
+
+	return _unescape;
+
+});

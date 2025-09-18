@@ -1,4 +1,7 @@
-'use strict';
-var parent = require('../../stable/instance/push');
+define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-module.exports = parent;
+	var push = _unmethodize(_setup.ArrayProto.push);
+
+	return push;
+
+});

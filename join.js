@@ -1,5 +1,7 @@
-'use strict';
-require('../../modules/es.array.join');
-var entryUnbind = require('../../internals/entry-unbind');
+define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-module.exports = entryUnbind('Array', 'join');
+	var join = _unmethodize(_setup.ArrayProto.join);
+
+	return join;
+
+});

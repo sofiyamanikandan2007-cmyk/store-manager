@@ -1,4 +1,7 @@
-'use strict';
-var parent = require('../../stable/instance/unshift');
+define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-module.exports = parent;
+	var unshift = _unmethodize(_setup.ArrayProto.unshift);
+
+	return unshift;
+
+});

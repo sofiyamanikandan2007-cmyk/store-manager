@@ -1,25 +1,25 @@
-var basePick = require('./_basePick'),
-    flatRest = require('./_flatRest');
+define(['./isFunction', './_optimizeCb', './_flatten', './_keyInObj', './allKeys', './restArguments'], function (isFunction, _optimizeCb, _flatten, _keyInObj, allKeys, restArguments) {
 
-/**
- * Creates an object composed of the picked `object` properties.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The source object.
- * @param {...(string|string[])} [paths] The property paths to pick.
- * @returns {Object} Returns the new object.
- * @example
- *
- * var object = { 'a': 1, 'b': '2', 'c': 3 };
- *
- * _.pick(object, ['a', 'c']);
- * // => { 'a': 1, 'c': 3 }
- */
-var pick = flatRest(function(object, paths) {
-  return object == null ? {} : basePick(object, paths);
+  // Return a copy of the object only containing the allowed properties.
+  var pick = restArguments(function(obj, keys) {
+    var result = {}, iteratee = keys[0];
+    if (obj == null) return result;
+    if (isFunction(iteratee)) {
+      if (keys.length > 1) iteratee = _optimizeCb(iteratee, keys[1]);
+      keys = allKeys(obj);
+    } else {
+      iteratee = _keyInObj;
+      keys = _flatten(keys, false, false);
+      obj = Object(obj);
+    }
+    for (var i = 0, length = keys.length; i < length; i++) {
+      var key = keys[i];
+      var value = obj[key];
+      if (iteratee(value, key, obj)) result[key] = value;
+    }
+    return result;
+  });
+
+  return pick;
+
 });
-
-module.exports = pick;

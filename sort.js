@@ -1,4 +1,7 @@
-'use strict';
-var parent = require('../../stable/instance/sort');
+define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-module.exports = parent;
+	var sort = _unmethodize(_setup.ArrayProto.sort);
+
+	return sort;
+
+});

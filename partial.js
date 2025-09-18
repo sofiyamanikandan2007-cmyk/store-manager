@@ -1,50 +1,25 @@
-var baseRest = require('./_baseRest'),
-    createWrap = require('./_createWrap'),
-    getHolder = require('./_getHolder'),
-    replaceHolders = require('./_replaceHolders');
+define(['./underscore', './_executeBound', './restArguments'], function (underscore, _executeBound, restArguments) {
 
-/** Used to compose bitmasks for function metadata. */
-var WRAP_PARTIAL_FLAG = 32;
+  // Partially apply a function by creating a version that has had some of its
+  // arguments pre-filled, without changing its dynamic `this` context. `_` acts
+  // as a placeholder by default, allowing any combination of arguments to be
+  // pre-filled. Set `_.partial.placeholder` for a custom placeholder argument.
+  var partial = restArguments(function(func, boundArgs) {
+    var placeholder = partial.placeholder;
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        args[i] = boundArgs[i] === placeholder ? arguments[position++] : boundArgs[i];
+      }
+      while (position < arguments.length) args.push(arguments[position++]);
+      return _executeBound(func, bound, this, this, args);
+    };
+    return bound;
+  });
 
-/**
- * Creates a function that invokes `func` with `partials` prepended to the
- * arguments it receives. This method is like `_.bind` except it does **not**
- * alter the `this` binding.
- *
- * The `_.partial.placeholder` value, which defaults to `_` in monolithic
- * builds, may be used as a placeholder for partially applied arguments.
- *
- * **Note:** This method doesn't set the "length" property of partially
- * applied functions.
- *
- * @static
- * @memberOf _
- * @since 0.2.0
- * @category Function
- * @param {Function} func The function to partially apply arguments to.
- * @param {...*} [partials] The arguments to be partially applied.
- * @returns {Function} Returns the new partially applied function.
- * @example
- *
- * function greet(greeting, name) {
- *   return greeting + ' ' + name;
- * }
- *
- * var sayHelloTo = _.partial(greet, 'hello');
- * sayHelloTo('fred');
- * // => 'hello fred'
- *
- * // Partially applied with placeholders.
- * var greetFred = _.partial(greet, _, 'fred');
- * greetFred('hi');
- * // => 'hi fred'
- */
-var partial = baseRest(function(func, partials) {
-  var holders = replaceHolders(partials, getHolder(partial));
-  return createWrap(func, WRAP_PARTIAL_FLAG, undefined, partials, holders);
+  partial.placeholder = underscore;
+
+  return partial;
+
 });
-
-// Assign default placeholders.
-partial.placeholder = {};
-
-module.exports = partial;

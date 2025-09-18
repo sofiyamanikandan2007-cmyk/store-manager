@@ -1,24 +1,18 @@
-var baseSortedIndex = require('./_baseSortedIndex');
+define(['./_cb', './_getLength'], function (_cb, _getLength) {
 
-/**
- * Uses a binary search to determine the lowest index at which `value`
- * should be inserted into `array` in order to maintain its sort order.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Array
- * @param {Array} array The sorted array to inspect.
- * @param {*} value The value to evaluate.
- * @returns {number} Returns the index at which `value` should be inserted
- *  into `array`.
- * @example
- *
- * _.sortedIndex([30, 50], 40);
- * // => 1
- */
-function sortedIndex(array, value) {
-  return baseSortedIndex(array, value);
-}
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  function sortedIndex(array, obj, iteratee, context) {
+    iteratee = _cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0, high = _getLength(array);
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
+  }
 
-module.exports = sortedIndex;
+  return sortedIndex;
+
+});

@@ -1,1 +1,95 @@
-module.exports={A:{A:{"2":"K D E F A B hC"},B:{"1":"6 7 8 9 G N O P Q H R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x AB BB CB DB EB FB GB HB IB JB KB LB I","2":"C","388":"L M"},C:{"1":"0 1 2 3 4 5 6 7 8 9 OB PB QB RB SB TB UB VB WB XB YB ZB aB bB cB dB eB fB gB hB iB jB kB lB mB nB oB pB qB rB sB JC tB KC uB vB wB xB yB zB 0B 1B 2B 3B 4B 5B 6B 7B 8B 9B AC Q H R LC S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x AB BB CB DB EB FB GB HB IB JB KB LB I BC MC NC jC kC","2":"iC IC J MB K D E F A B C L M G N O P NB y z lC mC"},D:{"1":"6 7 8 9 VB WB XB YB ZB aB bB cB dB eB fB gB hB iB jB kB lB mB nB oB pB qB rB sB JC tB KC uB vB wB xB yB zB 0B 1B 2B 3B 4B 5B 6B 7B 8B 9B AC Q H R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x AB BB CB DB EB FB GB HB IB JB KB LB I BC MC NC","2":"0 1 2 3 J MB K D E F A B C L M G N O P NB y z","132":"4 5 OB PB QB RB SB TB UB"},E:{"1":"F A B C L M G rC PC CC DC sC tC uC QC RC EC vC FC SC TC UC VC WC wC GC XC YC ZC aC bC xC HC cC dC eC yC","2":"J MB K D nC OC oC","388":"E qC","514":"pC"},F:{"1":"0 1 2 3 4 5 OB PB QB RB SB TB UB VB WB XB YB ZB aB bB cB dB eB fB gB hB iB jB kB lB mB nB oB pB qB rB sB tB uB vB wB xB yB zB 0B 1B 2B 3B 4B 5B 6B 7B 8B 9B AC Q H R LC S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x","2":"F B C zC 0C 1C 2C CC fC 3C DC","132":"G N O P NB y z"},G:{"1":"9C AD BD CD DD ED FD GD HD ID JD KD LD MD ND QC RC EC OD FC SC TC UC VC WC PD GC XC YC ZC aC bC QD HC cC dC eC","2":"OC 4C gC 5C 6C 7C","388":"E 8C"},H:{"2":"RD"},I:{"1":"I WD XD","2":"IC J SD TD UD VD gC"},J:{"2":"D A"},K:{"1":"H","2":"A B C CC fC DC"},L:{"1":"I"},M:{"1":"BC"},N:{"2":"A B"},O:{"1":"EC"},P:{"1":"0 1 2 3 4 5 J y z YD ZD aD bD cD PC dD eD fD gD hD FC GC HC iD"},Q:{"1":"jD"},R:{"1":"kD"},S:{"1":"lD mD"}},B:1,C:"HTML templates",D:true};
+define(['./underscore', './defaults', './templateSettings'], function (underscore, defaults, templateSettings) {
+
+  // When customizing `_.templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'": "'",
+    '\\': '\\',
+    '\r': 'r',
+    '\n': 'n',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escapeRegExp = /\\|'|\r|\n|\u2028|\u2029/g;
+
+  function escapeChar(match) {
+    return '\\' + escapes[match];
+  }
+
+  var bareIdentifier = /^\s*(\w|\$)+\s*$/;
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  // NB: `oldSettings` only exists for backwards compatibility.
+  function template(text, settings, oldSettings) {
+    if (!settings && oldSettings) settings = oldSettings;
+    settings = defaults({}, settings, underscore.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset).replace(escapeRegExp, escapeChar);
+      index = offset + match.length;
+
+      if (escape) {
+        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+      } else if (interpolate) {
+        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+      } else if (evaluate) {
+        source += "';\n" + evaluate + "\n__p+='";
+      }
+
+      // Adobe VMs need the match returned to produce the correct offset.
+      return match;
+    });
+    source += "';\n";
+
+    var argument = settings.variable;
+    if (argument) {
+      if (!bareIdentifier.test(argument)) throw new Error(argument);
+    } else {
+      // If a variable is not specified, place data values in local scope.
+      source = 'with(obj||{}){\n' + source + '}\n';
+      argument = 'obj';
+    }
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + 'return __p;\n';
+
+    var render;
+    try {
+      render = new Function(argument, '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    var template = function(data) {
+      return render.call(this, data, underscore);
+    };
+
+    // Provide the compiled source as a convenience for precompilation.
+    template.source = 'function(' + argument + '){\n' + source + '}';
+
+    return template;
+  }
+
+  return template;
+
+});

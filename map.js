@@ -1,6 +1,18 @@
-'use strict';
-var parent = require('../../stable/iterator/map');
-require('../../modules/esnext.iterator.constructor');
-require('../../modules/esnext.iterator.map');
+define(['./keys', './_cb', './_isArrayLike'], function (keys, _cb, _isArrayLike) {
 
-module.exports = parent;
+  // Return the results of applying the iteratee to each element.
+  function map(obj, iteratee, context) {
+    iteratee = _cb(iteratee, context);
+    var _keys = !_isArrayLike(obj) && keys(obj),
+        length = (_keys || obj).length,
+        results = Array(length);
+    for (var index = 0; index < length; index++) {
+      var currentKey = _keys ? _keys[index] : index;
+      results[index] = iteratee(obj[currentKey], currentKey, obj);
+    }
+    return results;
+  }
+
+  return map;
+
+});

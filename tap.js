@@ -1,29 +1,13 @@
-/**
- * This method invokes `interceptor` and returns `value`. The interceptor
- * is invoked with one argument; (value). The purpose of this method is to
- * "tap into" a method chain sequence in order to modify intermediate results.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Seq
- * @param {*} value The value to provide to `interceptor`.
- * @param {Function} interceptor The function to invoke.
- * @returns {*} Returns `value`.
- * @example
- *
- * _([1, 2, 3])
- *  .tap(function(array) {
- *    // Mutate input array.
- *    array.pop();
- *  })
- *  .reverse()
- *  .value();
- * // => [2, 1]
- */
-function tap(value, interceptor) {
-  interceptor(value);
-  return value;
-}
+define(function () {
 
-module.exports = tap;
+  // Invokes `interceptor` with the `obj` and then returns `obj`.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  function tap(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  }
+
+  return tap;
+
+});

@@ -1,4 +1,7 @@
-'use strict';
-var parent = require('../../stable/instance/splice');
+define(['./_unmethodize', './_setup'], function (_unmethodize, _setup) {
 
-module.exports = parent;
+	var splice = _unmethodize(_setup.ArrayProto.splice);
+
+	return splice;
+
+});
